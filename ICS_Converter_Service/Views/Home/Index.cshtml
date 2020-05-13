@@ -1,8 +1,32 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "ICS Converter Service for waste collection";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<script>
+    function parseURL() {
+        $('#result').val(window.location.origin + '/api/ConvertICStoCSV?url=' + encodeURIComponent($('#urlInput').val()));
+    }
+</script>
+
+<div>
+    <h2>API link Creator:</h2>
+    <div class="form-group">
+        <input type="text" class="form-control" id="urlInput" aria-describedby="urlInputHelp" placeholder="Enter ICS Url">
+        <small id="urlInputHelp" class="form-text text-muted">Enter here your ICS Url for your waste service to generate an API Url link.</small>
+    </div>
+    <button type="button" class="btn btn-outline-dark" onclick="parseURL()">Generate</button>
+    <div class="text-center">
+        <div class="md-form">
+            <h2>Your API link:</h2>
+            <textarea id="result" class="md-textarea form-control" rows="3"></textarea>
+        </div>
+    </div>
+    <br />    
+    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 font-italic">The story</h1>
+            <p class="lead my-4">This webtool was created because I wanted to integrate my waste service into my Home Assistant instance. Unfortunately it only provides the emptying dates as ICS file, so I could not use the integration of Tom Beyer. So I have created this webtool which converts the ICS file into a CSV.</p>
+            <p class="lead mb-0"><a href="https://beyer-tom.de/blog/2018/11/home-assistant-integration-abfall-io-waste-collection-dates/" target="_blank" class="text-white font-weight-bold">Further information is available here...</a></p>
+        </div>
+    </div>
 </div>
