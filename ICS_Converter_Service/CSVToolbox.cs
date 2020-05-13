@@ -81,7 +81,24 @@ namespace ICS_Converter_Service
                 }
             }
 
-            return _csvString.ToString();
+            return UmlauteReplace(_csvString.ToString());
+        }
+
+        /// <summary>
+        /// Im String die Umlaute ersetzten.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public string UmlauteReplace(string input)
+        {
+            var result = input.Replace("ö", "oe");
+            result = result.Replace("Ö", "Oe");
+            result = result.Replace("ü", "ue");
+            result = result.Replace("Ü", "Ue");
+            result = result.Replace("ä", "ae");
+            result = result.Replace("Ä", "Ae");
+            result = result.Replace("ß", "ss");
+            return result;
         }
     }
 }
