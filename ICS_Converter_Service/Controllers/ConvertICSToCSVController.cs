@@ -22,7 +22,7 @@ namespace ICS_Converter_Service.Controllers
             var _csvString = new CSVToolbox().EventsObjToCSVString(_eventsObj);
 
 
-            return File(new System.Text.UTF8Encoding().GetBytes(_csvString), "text/csv", "data.csv");
+            return File(new System.Text.ASCIIEncoding().GetBytes(_csvString), "text/csv", "data.csv");
         }
     }
 }
