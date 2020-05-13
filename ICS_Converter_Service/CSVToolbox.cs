@@ -71,7 +71,11 @@ namespace ICS_Converter_Service
                     // War es die Letzte Gruppe die Row beenden
                     if (_groupList.IndexOf(x) == _groupList.Count() - 1)
                     {
-                        _csvString.Append(Environment.NewLine);
+                        // Bei den letzte Datensatz keine ReturnNL
+                        if (i < _maxCount - 1)
+                        {
+                            _csvString.Append(Environment.NewLine);
+                        }                        
                     }
                     // Wenn es nicht die letzte Gruppe ist, ein Trenner einfügen
                     else
