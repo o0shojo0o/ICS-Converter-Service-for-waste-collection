@@ -4,7 +4,14 @@
 
 <script>
     function parseURL() {
-        $('#result').val(window.location.origin + '/api/ConvertICStoCSV?url=' + encodeURIComponent($('#urlInput').val()));
+
+        var urlString = window.location.origin + '/api/ConvertICStoCSV?url=' + encodeURIComponent($('#urlInput').val());
+
+        if ($('#c_trace_de').is(':checked')) {
+            urlString += '&adaptation=C_Trace_De';
+        }
+
+        $('#result').val(urlString);
     }
 </script>
 
@@ -14,6 +21,12 @@
         <input type="text" class="form-control" id="urlInput" aria-describedby="urlInputHelp" placeholder="Enter ICS Url">
         <small id="urlInputHelp" class="form-text text-muted">Enter here your ICS Url for your waste service to generate an API Url link.</small>
     </div>
+    <div class="form-check">
+        <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="" id="c_trace_de"> Adaptation for c-trace.de
+        </label>
+    </div>
+    <br />
     <button type="button" class="btn btn-outline-dark" onclick="parseURL()">Generate</button>
     <div class="text-center">
         <div class="md-form">
@@ -21,7 +34,7 @@
             <textarea id="result" class="md-textarea form-control" rows="3"></textarea>
         </div>
     </div>
-    <br />    
+    <br />
     <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
         <div class="col-md-6 px-0">
             <h1 class="display-4 font-italic">The story</h1>

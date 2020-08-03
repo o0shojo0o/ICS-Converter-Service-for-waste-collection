@@ -13,11 +13,11 @@ namespace ICS_Converter_Service.Controllers
     public class ConvertICSToCSVController : ControllerBase
     {
         [HttpGet]
-        public FileContentResult Get(string url)
+        public FileContentResult Get(string url, Adaptation adaptation)
         {
             var _icalString = url.GetStringAsync().Result;
 
-            var _eventsObj = new ICSToolbox().ICSStringToEventsObj(_icalString);
+            var _eventsObj = new ICSToolbox().ICSStringToEventsObj(_icalString, adaptation);
 
             var _csvString = new CSVToolbox().EventsObjToCSVString(_eventsObj);
 

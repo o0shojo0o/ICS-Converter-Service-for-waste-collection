@@ -13,7 +13,7 @@ namespace ICS_Converter_Service
         {
         }
 
-        public List<Event> ICSStringToEventsObj(string _icalString)
+        public List<Event> ICSStringToEventsObj(string _icalString, Adaptation adaptation)
         {
             var _separator = "";
             if (_icalString.Contains("\r\n"))
@@ -28,8 +28,8 @@ namespace ICS_Converter_Service
 
             var _lines = _icalString.Split(_separator).ToList();
             var _events = new List<Event>();
-            var _newEvent = false;
-            Event _tempEvent = new Event();
+            bool _newEvent = false;
+            var _tempEvent = new Event();
 
             _lines.ForEach(x =>
             {
@@ -42,7 +42,26 @@ namespace ICS_Converter_Service
                 if (x == "END:VEVENT")
                 {
                     _newEvent = false;
-                    _events.Add(_tempEvent);
+                    if (adaptation == Adaptation.C_Trace_De)
+                    {
+                        var _splitEvent = _tempEvent.Name.Split("/");
+
+                        _splitEvent.ToList().ForEach(y =>
+                        {
+                            var _newTempEvent = new Event()
+                            {
+                                Name = y.Trim(),
+                                Start = _tempEvent.Start
+                            };                          
+
+                            _events.Add(_newTempEvent);
+                        });
+                    }
+                    else
+                    {
+                        _events.Add(_tempEvent);
+                    }
+
                 }
 
                 if (_newEvent)
@@ -54,11 +73,12 @@ namespace ICS_Converter_Service
                     else if (x.StartsWith("SUMMARY"))
                     {
                         _tempEvent.Name = x.Split(":")[1];
+
+                        if (adaptation == Adaptation.C_Trace_De)
+                        {
+                            _tempEvent.Name = x.Split(":")[2];
+                        }
                     }
-                    //else if (x.StartsWith("DTEND"))
-                    //{
-                    //    _tempEvent.End = DateTime.ParseExact(x.Split(":")[1], "yyyymmdd", CultureInfo.InvariantCulture);
-                    //}
                 }
             });
 
