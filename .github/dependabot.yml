@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directory: "/ICS_Converter_Service/"
+    schedule:
+      interval: daily
+  - package-ecosystem: docker
+    directory: "/ICS_Converter_Service/"
+    schedule:
+      interval: daily
