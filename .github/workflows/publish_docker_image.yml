@@ -45,7 +45,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./ICS_Converter_Service/Dockerfile
+          file: /ICS_Converter_Service/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
